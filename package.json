@@ -1,0 +1,20 @@
+{
+  "name": "BrowserBatch",
+  "version": "1.0.1",
+  "main": "_index.js",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "child_process": "^1.0.2",
+    "fs": "^0.0.1-security",
+    "iconv-lite": "^0.5.0",
+    "xlsx": "^0.15.1"
+  },
+  "bin": {
+    "shoot": "/Users/pp/VSProjects/Collect_GaodeMap/src/map.js"
+  },
+  "description": "batch processing browser tasks",
+  "author": "pp",
+  "repository": "https://github.com/ToneNonly/BrowserBatch.git",
+  "private": false
+}
