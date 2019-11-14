@@ -56,6 +56,7 @@ module.exports = {
     defaultHandlerFolder: './default/fileHandlers/',
 
     //=>插件
+    //=>格式为()=>new XXX(integrate)
     plugins: [
 
     ],

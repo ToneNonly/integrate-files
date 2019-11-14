@@ -1,12 +1,11 @@
-const batchFunctions = require('../../utils/utils_batchFunctions')
-const integrateFiles = require('../../utils/utils_integrateFiles')
-
 class Integrate {
-    constructor(config) {
+    constructor(config, integrateFiles, batchFunctions) {
         this.config = config
 
         this.handlers = {}
         this.resources = {}
+        this.integrateFiles = integrateFiles
+        this.batchFunctions = batchFunctions
 
         this.run()
     }
@@ -15,13 +14,21 @@ class Integrate {
         //=>初始化钩子函数
         this.initHooks()
 
-        //=>初始化插件
+        //=>初始化插件，全部存入this.plugins
         this.initPlugins(config.plugins)
 
-        //=>初始化资源
+        //=>初始化资源，全部存入this.resources
         this.initResources(config.resources)
+
+        //---------------------(未完成)整合文件及尝试缓存-----------------------//
+        //=>整合文件
+        this.integrateFiles()
+
+
+        //---------------------(未完成)钩子函数的执行---------------------------//
     }
 
+    //---------（未完成）hooks改为私有属性，确认是否有使用Redux的必要----------//
     initHooks() {
         this.beforeIntegrate = config.beforeIntegrate || []
         this.beforeReadSingleFile = config.beforeReadSingleFile || []
@@ -32,7 +39,8 @@ class Integrate {
     }
 
     initPlugins(plugins) {
-        batchFunctions(plugins, this)
+        //---------------(未完成)确认将this设置为空字符串是否可以成功避免影响this指向--------------------//
+        batchFunctions(plugins, '', this)
     }
 
     initResource(resource) {
@@ -59,6 +67,9 @@ class Integrate {
             this.initResource(val)
         })
     }
+
+    //--------------------(未完成)钩子函数的添加、删除、执行-------------------------------//
+    //--------------------(未完成)确认钩子函数是否需要同、异步区分--------------------------//
 }
 
 module.exports = Integrate

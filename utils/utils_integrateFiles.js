@@ -1,3 +1,5 @@
+//------------------------(未完成)改写成纯函数----------------------------//
+
 const fs = require('fs')
 const fap = require('./utils_getFileAbsolutePath')
 const ws = require('./utils_writeStream')
