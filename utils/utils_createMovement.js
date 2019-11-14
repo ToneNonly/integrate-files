@@ -10,6 +10,6 @@ module.exports = function createMovement(target, move, value, inputValue) {
     
     if (move === 'click') target.click()
     else if (move === 'input') {
-        target.value = inputValue
+        target.value = inputValue || value
     }
 }

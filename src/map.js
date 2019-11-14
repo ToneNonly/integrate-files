@@ -9,7 +9,7 @@
 const from = 1,
     // to = 138,
     to = 11,
-    position = 'A',
+    column = 'A',
     sheetName = '整理'
 /***********************end******************************/
 
@@ -20,7 +20,7 @@ const from = 1,
  * @return
  *  absolutePath: string
  */
-const getFAP = require('./utils/utils_getFileAbsolutePath')()
+const getFAP = require('../utils/utils_getFileAbsolutePath')()
 
 const XLSX = require('xlsx')
 
@@ -33,7 +33,7 @@ const sheet = workbook.Sheets[sheetName]
 let arr = []
 
 for (let i = from; i < to; i++) {
-    arr.push(sheet[position + i].v)
+    arr.push(sheet[column + i].v)
 }
 
 //=>将需要收藏的条目写入TXT文件
@@ -44,8 +44,8 @@ console.log('TXT文件写入成功')
 
 //----------------2019.11.11更新------------------//
 //----------------将文件一起写入_index.js----------//
-const IF = require('./utils/utils_integrateFiles')
-const {files, targetFile} = require('./config/integrateFiles.conf')
+const IF = require('../utils/utils_integrateFiles')
+const {files, targetFile} = require('../custom/config/integrateFiles.conf')
 IF(files, targetFile)
 //--------------end-----------------------------//
 

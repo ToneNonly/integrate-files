@@ -11,7 +11,7 @@
     "xlsx": "^0.15.1"
   },
   "bin": {
-    "shoot": "/Users/pp/VSProjects/Collect_GaodeMap/src/map.js"
+    "shoot": "/Users/pp/VSProjects/BrowserBatch/startIntegrate.js"
   },
   "description": "batch processing browser tasks",
   "author": "pp",
