@@ -58,32 +58,34 @@ module.exports = {
     //=>插件
     //=>格式为()=>new XXX(integrate)
     plugins: [
-
+        
     ],
 
-    beforeReadSingleFile: [
+    hooks: {
+        beforeReadSingleFile: [
 
-    ],
-
-    afterReadSingleFile: [
-
-    ],
-
-    beforeWriteSingleFile: [
-
-    ],
-
-    afterWriteSingleFile: [
-
-    ],
-
-    //=>添加函数到beforeIntegrate钩子函数队列
-    beforeIntegrate: [
-
-    ],
-
-    //=>添加函数到afterIntegrate钩子函数队列
-    afterIntegrate: [
-
-    ]
+        ],
+    
+        afterReadSingleFile: [
+    
+        ],
+    
+        beforeWriteSingleFile: [
+    
+        ],
+    
+        afterWriteSingleFile: [
+    
+        ],
+    
+        //=>添加函数到beforeIntegrate钩子函数队列
+        beforeIntegrate: [
+    
+        ],
+    
+        //=>添加函数到afterIntegrate钩子函数队列
+        afterIntegrate: [
+    
+        ]
+    }
 }

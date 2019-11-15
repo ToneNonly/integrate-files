@@ -2,25 +2,20 @@ const CustomEvent = require('./CustomEvent')
 
 class Integrate extends CustomEvent{
     constructor(options) {
-        super(options.eventOptions)
+        //=>初始化事件
+        super(options.eventOptions, options.hooks)
+        //=>初始化处理函数
         this.handlers = {}
+        //=>初始化资源
         this.resources = {}
 
+        //=>批量赋值
         Object.assign(this, options)
-        
-        //-------------------(未完成)尝试更好的赋值方法-------------------//
-        // this.config = config
-        // this.writeStream = writeStream
-        // this._integrateFiles = integrateFiles
-        // this.batchFunctions = batchFunctions
-        // this.syncExecute = syncExecute
 
         this.run()
     }
 
     run() {
-        //=>初始化钩子函数
-        this.initHooks()
 
         //=>初始化插件，全部存入this.plugins
         this.initPlugins(this.config.plugins)
@@ -31,18 +26,6 @@ class Integrate extends CustomEvent{
         //---------------------(未完成)整合文件及尝试缓存-----------------------//
         //=>整合文件
         this.integrateFiles()
-
-        //---------------------(未完成)钩子函数的执行---------------------------//
-    }
-
-    //---------（未完成）hooks改为私有属性，确认是否有使用Redux的必要----------//
-    initHooks() {
-        this.beforeIntegrate = this.config.beforeIntegrate || []
-        this.beforeReadSingleFile = this.config.beforeReadSingleFile || []
-        this.afterReadSingleFile = this.config.afterReadSingleFile || []
-        this.beforeWriteSingleFile = this.config.beforeWriteSingleFile || []
-        this.afterWriteSingleFile = this.config.afterWriteSingleFile || []
-        this.afterIntegrate = this.config.afterIntegrate || []
     }
 
     initPlugins(plugins) {
@@ -78,19 +61,21 @@ class Integrate extends CustomEvent{
 
     async integrateFiles() {
         //=>执行beforeIntegrate钩子函数
-        this.batchFunctions(this.beforeIntegrate)
+        this.dispatchEvent('beforeIntegrate')
 
         //=>整合文件
-        await this._integrateFiles(this.writeStream, this.resources, this.beforeWriteSingleFile, this.afterWriteSingleFile, this.batchFunctions)
+        await this._integrateFiles({
+            writeStream: this.writeStream, 
+            resources: this.resources, 
+            beforeWriteSingleFile: (...args) => this.dispatchEvent.apply(this, ['beforeWriteSingleFile', ...args]), 
+            afterWriteSingleFile: (...args) => this.dispatchEvent.apply(this, ['afterWriteSingleFile', ...args])
+        })
     
         //=>执行afterIntegrate钩子函数
-        this.batchFunctions(this.afterIntegrate)
+        this.dispatchEvent('afterIntegrate')
 
     }
 
-
-
-    //--------------------(未完成)钩子函数的添加、删除、执行-------------------------------//
     //--------------------(未完成)确认钩子函数是否需要同、异步区分--------------------------//
 }
 

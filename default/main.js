@@ -3,7 +3,7 @@ const integrateFiles = require('../utils/utils_integrateFiles')
 const batchFunctions = require('../utils/utils_batchFunctions')
 let Integrate = require('./components/Integrate')
 const createWriteStream = require('../utils/utils_createWriteStream')
-const syncExecute = require('../utils/utils_syncExecute')
+// const syncExecute = require('../utils/utils_syncExecute')
 const fs = require('fs')
 
 //=>创建输出目录
@@ -17,8 +17,8 @@ if (fs.readdirSync(baseUrl).indexOf(folder) < 0) fs.mkdirSync(fullDir)
 
 let integrate = new Integrate({
     config, 
-    integrateFiles, 
+    _integrateFiles: integrateFiles, 
     batchFunctions, 
     writeStream: createWriteStream(baseUrl + '/' + output), 
-    syncExecute
+    // syncExecute
 })
