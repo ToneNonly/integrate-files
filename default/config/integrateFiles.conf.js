@@ -32,7 +32,7 @@ module.exports = {
          * （未实现）forceUpdate {Boolean} 如设置，则不顾缓存强制刷新文件内容
          */
         {
-            path: './custom/resource/1.xlsx',
+            path: './custom/resources/1.xlsx',
             name: resourceTypes.COLLECT_PLACES,
             handler: [handlerTypes.GET_COLLECT_PLACES, {
                 from: 1,
