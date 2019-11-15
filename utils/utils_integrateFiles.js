@@ -14,7 +14,6 @@ async function integrateFiles(writeStream, resources, beforeWrite, afterWrite, b
         let data = `let ${name} = ${JSON.stringify(resources[name])};;\n`
         result += data
         await writeStream.write(data, coding)
-        console.log(2)
         batchFunctions(afterWrite, result)
     }
 

@@ -15,4 +15,10 @@ let fullDir = baseUrl + '/' + folder
 console.log(fullDir)
 if (fs.readdirSync(baseUrl).indexOf(folder) < 0) fs.mkdirSync(fullDir)
 
-let integrate = new Integrate(config, integrateFiles, batchFunctions, createWriteStream(baseUrl + '/' + output), syncExecute)
+let integrate = new Integrate({
+    config, 
+    integrateFiles, 
+    batchFunctions, 
+    writeStream: createWriteStream(baseUrl + '/' + output), 
+    syncExecute
+})

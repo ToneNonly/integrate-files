@@ -1,14 +1,19 @@
-class Integrate {
-    constructor(config, integrateFiles, batchFunctions, writeStream, syncExecute) {
+const CustomEvent = require('./CustomEvent')
+
+class Integrate extends CustomEvent{
+    constructor(options) {
+        super(options.eventOptions)
         this.handlers = {}
         this.resources = {}
+
+        Object.assign(this, options)
         
         //-------------------(未完成)尝试更好的赋值方法-------------------//
-        this.config = config
-        this.writeStream = writeStream
-        this._integrateFiles = integrateFiles
-        this.batchFunctions = batchFunctions
-        this.syncExecute = syncExecute
+        // this.config = config
+        // this.writeStream = writeStream
+        // this._integrateFiles = integrateFiles
+        // this.batchFunctions = batchFunctions
+        // this.syncExecute = syncExecute
 
         this.run()
     }
@@ -82,6 +87,8 @@ class Integrate {
         this.batchFunctions(this.afterIntegrate)
 
     }
+
+
 
     //--------------------(未完成)钩子函数的添加、删除、执行-------------------------------//
     //--------------------(未完成)确认钩子函数是否需要同、异步区分--------------------------//
