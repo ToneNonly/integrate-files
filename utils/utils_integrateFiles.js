@@ -1,3 +1,6 @@
+const toFullString = require('../utils/utils_toFullString')
+
+
 /**
  * INTEGRATE FILES ON THE BASIS OF SPECIFIC OBJECT
  * @param {WriteStream} writeStream
@@ -15,12 +18,26 @@ async function integrateFiles({
 }) {
 
     let result = ''
-    for (let name in resources) {
-        beforeWriteSingleFile(result)
-        let data = `let ${name} = ${JSON.stringify(resources[name])};;\n`
+    for (let [name, val] of resources) {
+        beforeWriteSingleFile({
+            hasWrite: result,
+            current: val,
+            name,
+            whole: resources
+        })
+        let data = `let ${name} = `
+        if (typeof val === 'string' && val.indexOf('$$$') === 0) data += `${val.substring(3)};;\n` 
+        else data += `${toFullString(val)};; \n`
+        // if (typeof val === 'string') data = `let ${name} = ${val};;\n`
+        // else data = `let ${name} = ${JSON.stringify(val)};;\n`
         result += data
         await writeStream.write(data, coding)
-        afterWriteSingleFile(result)
+        afterWriteSingleFile({
+            hasWrite: result,
+            current: val,
+            name,
+            whole: resources
+        })
     }
 
     return result;

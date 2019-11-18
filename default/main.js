@@ -20,5 +20,5 @@ let integrate = new Integrate({
     _integrateFiles: integrateFiles, 
     batchFunctions, 
     writeStream: createWriteStream(baseUrl + '/' + output), 
-    // syncExecute
+    // syncExecute,
 })

@@ -10,8 +10,8 @@ module.exports = {
     PLUGINS: 'plugins',
     BEFORE_INTEGRATE: 'beforeIntegrate',
     AFTER_INTEGRATE: 'afterIntegrate',
-    BEFORE_READ_SINGLE_FILE: 'beforeReadSingleFile',
-    AFTER_READ_SINGLE_FILE: 'afterReadSingleFile',
+    BEFORE_DEAL_WITH_SINGLE_FILE: 'beforeReadSingleFile',
+    AFTER_DEAL_WITH_SINGLE_FILE: 'afterReadSingleFile',
     BEFORE_WRITE_SINGLE_FILE: 'beforeWriteSingleFile',
     AFTER_WRITE_SINGLE_FILE: 'afterWriteSingleFile'
 }

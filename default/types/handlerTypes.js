@@ -16,7 +16,7 @@
 // saveFileName(customHandlerFolder)
 
 let handlerTypes = {
-    //=>预置处理函数键名默认以$DEFAULT_开头，键值以$default开头
+    //=>预置处理函数键名默认以$$$开头，键值以$$$开头
 }
 
 module.exports = handlerTypes

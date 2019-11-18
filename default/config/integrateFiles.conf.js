@@ -1,6 +1,7 @@
 const configTypes = require('../types/configTypes')
 const resourceTypes = require('../../custom/types/resourceTypes')
 const handlerTypes = {...require('../types/handlerTypes'), ...require('../../custom/types/handlerTypes')}
+const cycleGroupMovements = require('../../custom/plugins/CycleGroupMovements')
 
 module.exports = {
     //=>基准地址
@@ -33,7 +34,7 @@ module.exports = {
          */
         {
             path: './custom/resources/1.xlsx',
-            name: resourceTypes.COLLECT_PLACES,
+            name: resourceTypes.PLACES_TO_BE_COLLECTED,
             handler: [handlerTypes.GET_COLLECT_PLACES, {
                 from: 1,
                 to: 138,
@@ -47,7 +48,7 @@ module.exports = {
     resourceTypes: './custom/types/resourceTypes.js',
 
     //=>预置处理函数名称标识
-    defaultHandlerSymbol: '$default',
+    defaultHandlerSymbol: '$$$',
 
     //=>自定义处理函数
     customHandlerFolder: './custom/fileHandlers/',
@@ -58,34 +59,68 @@ module.exports = {
     //=>插件
     //=>格式为()=>new XXX(integrate)
     plugins: [
-        
+        (ig) => {
+            cycleGroupMovements(ig, [
+                {
+                    target: '#searchipt',
+                    move: 'input',
+                    time: 0
+                },
+                {
+                    target: '.searchlogo',
+                    move: 'click',
+                    time: 0
+                },
+                {
+                    target: '.serp-list .poibox',
+                    move: 'click',
+                    beforeMove(target) {
+                        if (!target || target.className.indexOf('poibox-empty') > -1) return false
+                        return true 
+                    },
+                    time: 3000
+                },
+                {
+                    target: '.collect',
+                    move: 'click',
+                    beforeMove(target) {
+                        if (target.className.indexOf('faved') >= 0) return false
+                        return true
+                    },
+                    time: 3000
+                },
+                {
+                    time: 1000
+                }
+            ])
+        }
     ],
 
     hooks: {
-        beforeReadSingleFile: [
-
+        beforeDealWithSingleFile: [
+            (e) => {console.log(`准备处理：${e.data.current.name}`)}
         ],
     
-        afterReadSingleFile: [
-    
+        afterDealWithSingleFile: [
+            (e) => {console.log(`处理完成：${e.data.current.name}`)}
         ],
     
         beforeWriteSingleFile: [
-    
+            (e) => {console.log(`准备写入：${e.data.name}...`)}
         ],
     
         afterWriteSingleFile: [
-    
+            (e) => {console.log(`写入完成：${e.data.name}`)}
         ],
     
         //=>添加函数到beforeIntegrate钩子函数队列
         beforeIntegrate: [
-    
+            (e) => {console.log('开始整合文件...')}
         ],
     
         //=>添加函数到afterIntegrate钩子函数队列
         afterIntegrate: [
-    
+            (e) => {console.log('整合完成^_^')}
         ]
     }
 }

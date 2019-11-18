@@ -1,13 +1,13 @@
 const CustomEvent = require('./CustomEvent')
 
-class Integrate extends CustomEvent{
+class Integrate extends CustomEvent {
     constructor(options) {
         //=>初始化事件
-        super(options.eventOptions, options.hooks)
+        super(options.eventOptions, options.config.hooks)
         //=>初始化处理函数
         this.handlers = {}
         //=>初始化资源
-        this.resources = {}
+        this.resources = new Map()
 
         //=>批量赋值
         Object.assign(this, options)
@@ -16,12 +16,11 @@ class Integrate extends CustomEvent{
     }
 
     run() {
+        //=>初始化资源，全部存入this.resources
+        this.initResources(this.config.resources)
 
         //=>初始化插件，全部存入this.plugins
         this.initPlugins(this.config.plugins)
-
-        //=>初始化资源，全部存入this.resources
-        this.initResources(this.config.resources)
 
         //---------------------(未完成)整合文件及尝试缓存-----------------------//
         //=>整合文件
@@ -46,33 +45,59 @@ class Integrate extends CustomEvent{
         }
 
         //--------------------(未完成)添加网络请求任务---------------------//
-        this.resources[resourceName] = handler.apply(this, [this.config.baseUrl + '/' + path, ...args])
+        this.resources.set(resourceName, handler.apply(this, [this.config.baseUrl + '/' + path, ...args]))
 
-        if (callback) callback.call(this, this.resources[resourceName])
+        if (callback) callback.call(this, this.resources.get(resourceName))
 
     }
 
     initResources(resources) {
         if (!Array.isArray(resources) || resources.length === 0) return this.resources = []
-        resources.forEach(val => {
+        resources.forEach((val, ind) => {
+            this.dispatchEvent({
+                event: 'beforeDealWithSingleFile',
+                data: {
+                    current: val,
+                    index: ind,
+                    whole: resources
+                }
+            })
             this.initResource(val)
+            this.dispatchEvent({
+                event: 'afterDealWithSingleFile',
+                data: {
+                    current: val,
+                    index: ind,
+                    whole: resources
+                }
+            })
         })
     }
 
     async integrateFiles() {
         //=>执行beforeIntegrate钩子函数
-        this.dispatchEvent('beforeIntegrate')
+        this.dispatchEvent({
+            event: 'beforeIntegrate',
+            data: {
+                whole: this.resources
+            }
+        })
 
         //=>整合文件
         await this._integrateFiles({
-            writeStream: this.writeStream, 
-            resources: this.resources, 
-            beforeWriteSingleFile: (...args) => this.dispatchEvent.apply(this, ['beforeWriteSingleFile', ...args]), 
-            afterWriteSingleFile: (...args) => this.dispatchEvent.apply(this, ['afterWriteSingleFile', ...args])
+            writeStream: this.writeStream,
+            resources: this.resources,
+            beforeWriteSingleFile: (data) => this.dispatchEvent.call(this, {event: 'beforeWriteSingleFile', data}),
+            afterWriteSingleFile: (data) => this.dispatchEvent.call(this, {event: 'afterWriteSingleFile', data})
         })
-    
+
         //=>执行afterIntegrate钩子函数
-        this.dispatchEvent('afterIntegrate')
+        this.dispatchEvent({
+            event: 'afterIntegrate',
+            data: {
+                whole: this.resources
+            }
+        })
 
     }
 

@@ -18,8 +18,9 @@ class CustomEvent {
      * DISPATCH EVENT
      * @param {String} event 
      */
-    dispatchEvent(event, ...args) {
-        this._batchFunctions(this.hooks[event], args)
+    dispatchEvent(e) {
+        let {event} = e
+        this._batchFunctions(this.hooks[event], [e])
     }
 
     _batchFunctions(arr, args = []) {
