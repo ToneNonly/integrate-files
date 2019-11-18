@@ -1,5 +1,6 @@
 ## 介绍
 `integrate-files`是一个小型的、基于文件的、可扩展的Node.js插件，可以将多个不同类型的文件个性化处理后合并成一个.js文件。
+>高德地图位置批量收藏：打开[高德地图主页](https://www.gaode.com/)，成功登录后，复制`output/main.js`中的代码到控制台运行。切勿运行多次，容易被"惩罚"-_-
 
 ## 开发和测试环境
 * Visual Studio Code v1.40.1
