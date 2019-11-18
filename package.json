@@ -1,7 +1,7 @@
 {
-  "name": "BrowserBatch",
-  "version": "1.0.1",
-  "main": "_index.js",
+  "name": "integrate-files",
+  "version": "2.11.18",
+  "main": "startIntegrate.js",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
@@ -11,10 +11,10 @@
     "xlsx": "^0.15.1"
   },
   "bin": {
-    "shoot": "/Users/pp/VSProjects/BrowserBatch/startIntegrate.js"
+    "shoot": "/Users/pp/VSProjects/integrate-files/startIntegrate.js"
   },
-  "description": "batch processing browser tasks",
+  "description": "integrate various types of files to .js file",
   "author": "pp",
-  "repository": "https://github.com/ToneNonly/BrowserBatch.git",
+  "repository": "https://github.com/ToneNonly/integrate-files.git",
   "private": false
 }
