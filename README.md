@@ -29,7 +29,7 @@
 * output *输出*
 * startIntegrate.js *入口文件*
 
-## 使用教程
+## 应用指南
 ### 全局配置文件
 `default/config/integrateFiles.conf.js`
 ```javascript
