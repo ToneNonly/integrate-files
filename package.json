@@ -1,6 +1,6 @@
 {
   "name": "integrate-files",
-  "version": "2.11.18",
+  "version": "2.11.19",
   "main": "startIntegrate.js",
   "license": "MIT",
   "dependencies": {},

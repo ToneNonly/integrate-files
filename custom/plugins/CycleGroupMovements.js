@@ -20,23 +20,25 @@ function cycleGroupMovements(integrate, options) {
                             let target = option.target
                             if (target) {
                                 target = document.querySelector(target)
-                                if (option.beforeMove && !option.beforeMove(target)) {
-                                    //=>前序检查未通过
-                                    
-                                    try {
+                                try {
+                                    if (option.beforeMove && !option.beforeMove(target)) {
+                                        //=>前序检查未通过
+
                                         if (!target || target.className.indexOf('serp-list') >= 0) failPlaces.push(`"${place}"`)
                                         result = false
-                                    } catch(e) {
-                                        console.log(e)
                                         failPlaces.push(`"${place}"`)
+
+                                    } else {
+                                        //=>前序检查通过
+
+                                        //--------------------Object.assign会改变原对象！！！！-----------------//
+                                        createMovement({ ...option, target, inputValue: place })
+                                        option.afterMove && option.afterMove(target)
                                     }
-                                
-                                } else {
-                                    //=>前序检查通过
-                                    
-                                    //--------------------Object.assign会改变原对象！！！！-----------------//
-                                    createMovement({...option, target, inputValue: place})
-                                    option.afterMove && option.afterMove(target)
+                                } catch (e) {
+                                    console.log(e)
+                                    result = false
+                                    failPlaces.push(`"${place}"`)
                                 }
                             }
                             resolve()
@@ -49,7 +51,7 @@ function cycleGroupMovements(integrate, options) {
         }
 
         function createMovement(option) {
-            let {target, move, value, inputValue} = option
+            let { target, move, value, inputValue } = option
             if (move === 'click') target.click()
             else if (move === 'input') target.value = inputValue || value
         }

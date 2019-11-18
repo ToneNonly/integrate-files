@@ -4,7 +4,7 @@ class Integrate extends CustomEvent {
     constructor(options) {
         //=>初始化事件
         super(options.eventOptions, options.config.hooks)
-        //=>初始化处理函数
+        //=>初始化处理器
         this.handlers = {}
         //=>初始化资源
         this.resources = new Map()

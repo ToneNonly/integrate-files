@@ -3,7 +3,7 @@ const XLSX = require('xlsx')
 /**
  * GET PLACES TO BE COLLECTED FROM .XLSX
  * @param {String} url
- * @param {Object} options 
+ * @param {Object} options
  * @returns {*}
  */
 function getCollectPlaces(url, options) {
