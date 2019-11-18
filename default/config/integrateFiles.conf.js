@@ -76,7 +76,7 @@ module.exports = {
                 {
                     target: '.searchlogo',
                     move: 'click',
-                    time: 0
+                    time: 1000
                 },
                 {
                     target: '.serp-list .poibox',
@@ -85,7 +85,7 @@ module.exports = {
                         if (!target || target.className.indexOf('poibox-empty') > -1) return false
                         return true
                     },
-                    time: 3000
+                    time: 2000
                 },
                 {
                     target: '.collect',
@@ -94,10 +94,10 @@ module.exports = {
                         if (target.className.indexOf('faved') >= 0) return false
                         return true
                     },
-                    time: 3000
+                    time: 2000
                 },
                 {
-                    time: 1000
+                    time: 2000
                 }
             ])
         }
