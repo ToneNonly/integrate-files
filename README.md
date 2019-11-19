@@ -4,6 +4,7 @@
 
 ## 开发和测试环境
 * Visual Studio Code v1.40.1
+* macOS v10.15.1
 * Node.js v10.15.3
 * Chrome v78.0.3904.97
 * Safari v13.0.3
@@ -43,6 +44,12 @@
 
 ### 插件
 [`插件`](#自定义插件)是一种对已有资源进行二次加工，或者生成新的资源，并且拥有全流程控制权限的程序
+
+## 运行
+进入项目根目录，执行`node startIntegrate.js`
+```bash
+pp@pp integrate-files % node startIntegrate.js  #请确保机器上已经安装了Node.js
+```
 
 ## 应用指南
 ### 全局配置文件
