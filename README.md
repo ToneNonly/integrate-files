@@ -9,25 +9,39 @@
 * Safari v13.0.3
 
 ## 项目结构
-* default *系统内置文档*
-    * components *系统组件*
-    * config *全局配置文件*
-    * fileHandlers *预置处理器*
-    * types *键名集合*
-        * configTypes.js *系统配置*
-        * handlerTypes.js *处理器*
-    * main.js *实际入口文件*
-* custom *用户自定义文档*
-    * config *全局配置文件*
-    * fileHandlers *处理器*
-    * plugins *插件*
-    * resources *资源文件*
-    * types *键名集合*
-        * handlerTypes.js *处理器*
-        * resourceTypes.js *资源变量*
-* utils *工具函数*
-* output *输出*
-* startIntegrate.js *入口文件*
+* default   *系统内置文档*
+    * components   *系统组件*
+    * config   *全局配置文件*
+    * fileHandlers   *预置处理器*
+    * types   *键名集合*
+        * configTypes.js   *系统配置*
+        * handlerTypes.js   *处理器*
+    * main.js   *实际入口文件*
+* custom   *用户自定义文档*
+    * config   *全局配置文件*
+    * fileHandlers   *处理器*
+    * plugins   *插件*
+    * resources   *资源文件*
+    * types   *键名集合*
+        * handlerTypes.js   *处理器*
+        * resourceTypes.js   *资源变量*
+* utils   *工具函数*
+* output   *输出*
+* startIntegrate.js   *入口文件*
+
+## 概念
+### 处理器、资源
+`[处理器](###自定义处理器)`的作用是读取文件内容，经过处理后输出
+`资源`就是处理后的数据
+
+>如何运行？
+>1. 在全局配置文件中配置需要处理的文件；
+>2. 文件路径、其他参数传入已注册的处理器
+>3. 处理器读取文件并处理数据
+>4. 输出处理结果，作为资源以变量的形式储存在当前[Integrate](###Integrate实例)实例上
+
+### 插件
+`[插件](###插件)`是一种对已有资源进行二次加工，或者生成新的资源，并且拥有全流程控制权限的程序
 
 ## 应用指南
 ### 全局配置文件
