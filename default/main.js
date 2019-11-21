@@ -1,9 +1,9 @@
 let config = require('./config/integrateFiles.conf')
-const integrateFiles = require('../utils/utils_integrateFiles')
-const batchFunctions = require('../utils/utils_batchFunctions')
+const integrateFiles = require('./utils/utils_integrateFiles')
+const batchFunctions = require('./utils/utils_batchFunctions')
 let Integrate = require('./components/Integrate')
-const createWriteStream = require('../utils/utils_createWriteStream')
-// const syncExecute = require('../utils/utils_syncExecute')
+const createWriteStream = require('./utils/utils_createWriteStream')
+// const syncExecute = require('./utils/utils_syncExecute')
 const fs = require('fs')
 
 //=>创建输出目录

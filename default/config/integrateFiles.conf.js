@@ -29,7 +29,7 @@ module.exports = {
             /*
              * handler {String | Array} 处理器
              *      @ {String} 调用对应的预置或用户自定义处理器，预置处理器应以*$$$*开头
-             *      @ {Array}  [handler: String[, arguments: Array]]
+             *      @ {Array}  [handler: String[, payload: Object]]
              */
             handler: [handlerTypes.GET_COLLECT_PLACES, {
                 from: 1,
@@ -40,9 +40,9 @@ module.exports = {
 
             /*
              * callback {Function} 处理器回调函数
-             *      @param data {Any} 处理结果
+             *      @param {Any} data 处理结果
              */
-            callback(res) {
+            callback(data) {
                 //some code//
             }
 
@@ -64,7 +64,7 @@ module.exports = {
     defaultHandlerFolder: './default/fileHandlers/',
 
     //=>插件
-    //=>格式为()=>new XXX(integrate)
+    //=>格式为(ig) => { <pluginName>(ig[, payload: Any]) }
     plugins: [
         (ig) => {
             cycleGroupMovements(ig, [

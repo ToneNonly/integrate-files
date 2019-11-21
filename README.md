@@ -21,7 +21,9 @@
     * types   *键名集合*
         * configTypes.js   *系统配置*
         * handlerTypes.js   *处理器*
+    * utils   *工具函数*
     * main.js   *实际入口文件*
+
 * custom   *用户自定义文档*
     * config   *全局配置文件*
     * fileHandlers   *处理器*
@@ -30,8 +32,9 @@
     * types   *键名集合*
         * handlerTypes.js   *处理器*
         * resourceTypes.js   *资源变量*
-* utils   *工具函数*
+
 * output   *输出*
+
 * startIntegrate.js   *入口文件*
 
 ## 概念
@@ -42,7 +45,7 @@
 
 >如何运行？
 >1. 在全局配置文件中配置需要处理的文件；
->2. 文件路径、其他参数传入已注册的处理器
+>2. 将文件路径、载荷传入已注册的处理器
 >3. 处理器读取文件并处理数据
 >4. 输出处理结果，作为资源以变量的形式储存在当前[Integrate](#Integrate实例)实例上
 
@@ -86,7 +89,7 @@ module.exports = {
             /*
              * handler {String | Array} 处理器
              *      @ {String} 调用对应的预置或用户自定义处理器，预置处理器应以*$$$*开头
-             *      @ {Array}  [handler: String[, arguments: Array]]
+             *      @ {Array}  [handler: String[, payload: Object]]
              */
             handler: [handlerTypes.GET_COLLECT_PLACES, {
                 from: 1,
@@ -97,9 +100,9 @@ module.exports = {
 
             /*
              * callback {Function} 处理器回调函数
-             *      @param data {Any} 处理结果
+             *      @param {Any} data 处理结果
              */
-            callback(res) {
+            callback(data) {
                 //some code//
             }
 
@@ -121,12 +124,12 @@ module.exports = {
     defaultHandlerFolder: './default/fileHandlers/',
 
     //=>插件
-    //=>格式为(ig) => { <pluginName>(ig[, options: Any]) }
+    //=>格式为(ig) => { <pluginName>(ig[, payload: Any]) }
     plugins: [
         (ig) => {
             cycleGroupMovements(
                 ig, //Integrate实例
-                ... //配置
+                ... //载荷
             )
         }
     ],
@@ -233,7 +236,7 @@ module.exports = {
 
     /**
      * @param {String} url 资源绝对路径
-     * @option {*Any} options 配置
+     * @option {*Any} options 载荷
      * @return {Any} 处理结果
      */
     function getCollectPlaces(url, options) {
@@ -284,7 +287,7 @@ module.exports = {
                 name: ...
                 handler: [
                     <处理器文件名>,  //可省略扩展名
-                    ...  //配置
+                    ...  //载荷
                 ]
             }
         ]
@@ -309,7 +312,7 @@ let integrate = {
     ```javascript
     /**
      * @param {Object} integrate Integrate实例
-     * @option {Any} options 配置
+     * @option {*Any} options 配置
      */
     module.exports = (integrate, options) => {
         //=>将普通资源添加进资源列表，以待写入文件
@@ -334,7 +337,7 @@ let integrate = {
             (ig) => {
                 cycleGroupMovements(
                     ig,   //Integrate实例
-                    。。。 //配置
+                    ... //配置
                 )
             }
         ]
