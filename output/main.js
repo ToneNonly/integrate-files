@@ -28,7 +28,7 @@ let CYCLE_GROUP_MOVEMENTS = (places, options, runRequest) => {
                 method: 'POST',
                 url: 'http://127.0.0.1:3000',
                 callback: (xhr) => {
-                    console.log(xhr.response)
+                    console.log(xhr.responseText)
                 },
                 payload: {
                     output: 'output/failPlaces.json',
