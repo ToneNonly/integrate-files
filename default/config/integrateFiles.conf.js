@@ -2,6 +2,7 @@ const configTypes = require('../types/configTypes')
 const resourceTypes = require('../../custom/types/resourceTypes')
 const handlerTypes = { ...require('../types/handlerTypes'), ...require('../../custom/types/handlerTypes') }
 const cycleGroupMovements = require('../../custom/plugins/cycleGroupMovements')
+const runServer = require('../../custom/plugins/runServer')
 
 module.exports = {
     //=>基准路径，startIntegrate.js所在目录
@@ -15,6 +16,11 @@ module.exports = {
 
     //=>（此为预留配置）开发模式：develop / production
     mode: '',
+
+    server: {
+        hostname: '127.0.0.1',
+        port: 3000
+    },
 
     //=>资源文件配置
     resources: [
@@ -33,7 +39,7 @@ module.exports = {
              */
             handler: [handlerTypes.GET_COLLECT_PLACES, {
                 from: 1,
-                to: 138,
+                to: 10,
                 column: 'A',
                 sheetName: '整理'
             }],
@@ -82,7 +88,7 @@ module.exports = {
                     target: '.serp-list .poibox',
                     move: 'click',
                     beforeMove(target) {
-                        if (!target || target.className.indexOf('poibox-empty') > -1) return false
+                        if (target.className.indexOf('poibox-empty') > -1) return false
                         return true
                     },
                     time: 2000
@@ -100,6 +106,11 @@ module.exports = {
                     time: 2000
                 }
             ])
+        },
+        (ig) => {
+            ig.addEventListener('afterIntegrate', () => { 
+                runServer(ig, ig.config.server) 
+            })
         }
     ],
 

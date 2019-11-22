@@ -12,7 +12,6 @@ let output = config.output
 
 let folder = output.substring(output.indexOf('/') + 1, output.lastIndexOf('/'))
 let fullDir = baseUrl + '/' + folder
-console.log(fullDir)
 if (fs.readdirSync(baseUrl).indexOf(folder) < 0) fs.mkdirSync(fullDir)
 
 let integrate = new Integrate({
