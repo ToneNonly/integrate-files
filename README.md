@@ -35,7 +35,7 @@
 
 * output   *输出*
 
-* startIntegrate.js   *入口文件*
+* startIntegrate.js   *执行入口文件*
 
 ## 概念
 ### 处理器、资源
