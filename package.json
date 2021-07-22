@@ -8,7 +8,7 @@
     "child_process": "^1.0.2",
     "fs": "^0.0.1-security",
     "iconv-lite": "^0.5.0",
-    "xlsx": "^0.15.1"
+    "xlsx": "^0.17.0"
   },
   "bin": {
     "shoot": "/Users/pp/VSProjects/integrate-files/startIntegrate.js"
